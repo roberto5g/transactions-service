@@ -1,0 +1,38 @@
+services:
+  ts_service:
+    build:
+      context: ..
+      dockerfile: ${PWD}/Dockerfile
+    container_name: ts_service
+    environment:
+      - JAVA_OPTS=-Dspring.profiles.active=docker
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - ts_database
+    networks:
+      - app-network
+    volumes:
+      - ./target:/app
+
+  ts_database:
+    image: postgres:16-alpine
+    container_name: ts_database
+    restart: always
+    environment:
+      - POSTGRES_DB=transactions
+      - POSTGRES_USER=pismo
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
+    networks:
+      - app-network
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+
+networks:
+  app-network:
+    driver: bridge
