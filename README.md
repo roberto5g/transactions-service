@@ -23,20 +23,20 @@ Este projeto de API foi criado com o objetivo de demonstrar as habilidades e con
 <div align="center">
 
 ## SonarCloud
-[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=roberto5g_transactions-service)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service)
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=roberto5g_transactions-service2)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service2)
 
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service&metric=ncloc)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service&metric=coverage)](https://sonarcloud.io/summary/new_code?id=roberto5g_transactions-service)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service2&metric=ncloc)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service2)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service2&metric=coverage)](https://sonarcloud.io/summary/new_code?id=roberto5g_transactions-service2)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service2&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service2)
 
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service&metric=security_rating)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service)
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service2&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service2)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service2&metric=security_rating)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service2)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service2&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service2)
 
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service&metric=bugs)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service&metric=code_smells)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service&metric=sqale_index)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service2&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service2)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service2&metric=bugs)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service2)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service2&metric=code_smells)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service2)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=roberto5g_transactions-service2&metric=sqale_index)](https://sonarcloud.io/dashboard?id=roberto5g_transactions-service2)
 
 </div>
 
