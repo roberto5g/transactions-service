@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    username: pismo
+    url: jdbc:postgresql://ts_database:5432/transactions
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database: POSTGRESQL
+    show_sql: true
+    properties:
+      hibernate:
+        format_sql: 'true'
+        default_schema: pismo
+    hibernate:
+      ddl-auto: update
