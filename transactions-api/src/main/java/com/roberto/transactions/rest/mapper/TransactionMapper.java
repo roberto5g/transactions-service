@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper
 public interface TransactionMapper {
 
@@ -17,4 +19,6 @@ public interface TransactionMapper {
     @Mapping(source = "amount", target = "amount")
     Transaction toTransaction(TransactionRequest transactionRequest);
     TransactionResponse toTransactionResponse(Transaction transaction);
+
+    List<TransactionResponse> toTransactionResponseList(List<Transaction> transactions);
 }

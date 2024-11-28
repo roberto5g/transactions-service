@@ -1,10 +1,13 @@
 package com.roberto.transactions.rest.controller;
 
+import com.roberto.transactions.domain.ports.in.TransactionInputPort;
 import com.roberto.transactions.infra.handler.ExceptionResponse;
 import com.roberto.transactions.domain.ports.in.AccountInputPort;
 import com.roberto.transactions.rest.dto.request.AccountRequest;
 import com.roberto.transactions.rest.dto.response.AccountResponse;
+import com.roberto.transactions.rest.dto.response.AccountTransactionsResponse;
 import com.roberto.transactions.rest.mapper.AccountMapper;
+import com.roberto.transactions.rest.mapper.TransactionMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,6 +30,7 @@ import jakarta.validation.Valid;
 public class AccountController {
 
     private final AccountInputPort accountInputPort;
+    private final TransactionInputPort transactionInputPort;
 
     @Operation(
             summary = "Create a new account",
@@ -85,4 +89,19 @@ public class AccountController {
         log.info("Account retrieved successfully");
         return ResponseEntity.status(HttpStatus.OK).body(AccountMapper.INSTANCE.toAccountResponse(account));
     }
+
+    @GetMapping("/{accountId}/transactions")
+    public ResponseEntity<AccountTransactionsResponse> getAccountTransactions(@PathVariable("accountId") Long accountId) {
+        var accountTransactions = transactionInputPort.getTransactionsByAccount(accountId);
+        var accountResponse = AccountMapper.INSTANCE.toAccountResponse(accountTransactions.getAccount());
+        var transactionResponses = TransactionMapper.INSTANCE
+                .toTransactionResponseList(accountTransactions.getTransactions());
+        AccountTransactionsResponse accountTransactionsResponse = AccountTransactionsResponse.builder()
+                .accountId(accountResponse.getAccountId())
+                .documentNumber(accountResponse.getDocumentNumber())
+                .transactions(transactionResponses)
+                .build();
+        return ResponseEntity.status(HttpStatus.OK).body(accountTransactionsResponse);
+    }
+
 }

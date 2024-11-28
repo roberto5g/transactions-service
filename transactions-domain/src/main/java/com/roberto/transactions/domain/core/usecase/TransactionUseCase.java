@@ -1,5 +1,6 @@
 package com.roberto.transactions.domain.core.usecase;
 
+import com.roberto.transactions.domain.core.models.AccountTransactions;
 import com.roberto.transactions.domain.core.models.Transaction;
 import com.roberto.transactions.domain.ports.in.TransactionInputPort;
 import com.roberto.transactions.domain.ports.out.TransactionOutputPort;
@@ -17,5 +18,10 @@ public class TransactionUseCase implements TransactionInputPort {
     public Transaction insert(Transaction transaction) {
         transactionValidationUseCase.validate(transaction);
         return transactionOutputPort.insert(transaction);
+    }
+
+    @Override
+    public AccountTransactions getTransactionsByAccount(Long accountId) {
+        return transactionOutputPort.getTransactionsByAccountId(accountId);
     }
 }

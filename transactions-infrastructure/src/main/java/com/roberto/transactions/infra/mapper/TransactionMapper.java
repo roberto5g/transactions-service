@@ -6,6 +6,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper
 public interface TransactionMapper {
 
@@ -14,5 +16,7 @@ public interface TransactionMapper {
     @Mapping(source = "account.accountId", target = "accountId")
     @Mapping(source = "operationType.operationTypeId", target = "operationTypeId")
     Transaction toTransaction(TransactionEntity transactionEntity);
+
+    List<Transaction> toTransactionList(List<TransactionEntity> transactionEntities);
 }
 
