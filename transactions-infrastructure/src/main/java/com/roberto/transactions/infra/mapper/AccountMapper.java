@@ -13,7 +13,6 @@ public interface AccountMapper {
 
     AccountMapper INSTANCE = Mappers.getMapper(AccountMapper.class);
 
-    @Mapping(source = "availableCreditLimit", target = "availableCreditLimit")
     AccountEntity toAccountEntity(Account account);
     Account toAccount(AccountEntity accountEntity);
 

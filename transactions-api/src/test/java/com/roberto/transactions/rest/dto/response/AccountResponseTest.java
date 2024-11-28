@@ -2,6 +2,8 @@ package com.roberto.transactions.rest.dto.response;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AccountResponseTest {
@@ -11,6 +13,7 @@ class AccountResponseTest {
         var accountResponse = AccountResponse.builder()
                 .accountId(1L)
                 .documentNumber("12345678901")
+                .availableCreditLimit(BigDecimal.ZERO)
                 .build();
 
         assertNotNull(accountResponse);
@@ -31,7 +34,7 @@ class AccountResponseTest {
 
     @Test
     void shouldCreateAccountResponseUsingAllArgsConstructor() {
-        var accountResponse = new AccountResponse(3L, "11122233344");
+        var accountResponse = new AccountResponse(3L, "11122233344", BigDecimal.ZERO);
 
         assertNotNull(accountResponse);
         assertEquals(3L, accountResponse.getAccountId());

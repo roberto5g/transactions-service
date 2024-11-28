@@ -50,7 +50,6 @@ public class TransactionAdapter implements TransactionOutputPort {
                 accountEntity.setAvailableCreditLimit(accountEntity.getAvailableCreditLimit().add(transaction.getAmount()));
             }
 
-
             log.info("Getting operation type entity with ID: {}", transaction.getOperationTypeId());
             final var operationTypeEntity = operationTypeJpaRepository.findById(transaction.getOperationTypeId())
                     .orElseThrow(() -> {
