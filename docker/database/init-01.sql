@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS pismo.accounts;
 CREATE TABLE pismo.accounts (
     account_id BIGSERIAL PRIMARY KEY,
     document_number VARCHAR(11) NOT NULL
+    available_credit_limit NUMERIC(15, 2) not null;
 );
 
 -- table operations_types

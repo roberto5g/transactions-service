@@ -52,6 +52,7 @@ public class AccountController {
     @PostMapping
     public ResponseEntity<AccountResponse> create(@Valid @RequestBody AccountRequest accountRequest) {
         log.info("Creating a new account");
+        var ac = AccountMapper.INSTANCE.toAccount(accountRequest);
         var account = accountInputPort.insert(AccountMapper.INSTANCE.toAccount(accountRequest));
         log.info("Account created successfully");
         return ResponseEntity.status(HttpStatus.CREATED).body(AccountMapper.INSTANCE.toAccountResponse(account));

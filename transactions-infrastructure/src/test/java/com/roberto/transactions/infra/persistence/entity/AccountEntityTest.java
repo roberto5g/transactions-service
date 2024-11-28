@@ -5,6 +5,8 @@ import com.roberto.transactions.domain.core.models.Account;
 import com.roberto.transactions.infra.mapper.AccountMapper;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -31,9 +33,9 @@ class AccountEntityTest {
 
     @Test
     void shouldVerifyEqualsAndHashCode() {
-        var account1 = AccountMapper.INSTANCE.toAccountEntity(new Account(1L, "12345678901"));
-        var account2 = AccountMapper.INSTANCE.toAccountEntity(new Account(1L, "12345678901"));
-        var account3 = AccountMapper.INSTANCE.toAccountEntity(new Account(2L, "98765432109"));
+        var account1 = AccountMapper.INSTANCE.toAccountEntity(new Account(1L, "12345678901", BigDecimal.ZERO));
+        var account2 = AccountMapper.INSTANCE.toAccountEntity(new Account(1L, "12345678901", BigDecimal.ZERO));
+        var account3 = AccountMapper.INSTANCE.toAccountEntity(new Account(2L, "98765432109", BigDecimal.ZERO));
 
         assertEquals(account1, account2);
         assertEquals(account1.hashCode(), account2.hashCode());
@@ -48,6 +50,7 @@ class AccountEntityTest {
         AccountEntity account = AccountEntity.builder()
                 .accountId(1L)
                 .documentNumber("12345678901")
+                .availableCreditLimit(BigDecimal.ZERO)
                 .build();
 
         assertEquals(1L, account.getAccountId());
