@@ -42,7 +42,7 @@ Este projeto de API foi criado com o objetivo de demonstrar as habilidades e con
 
 ##  Pré -requisitos
 
-- [ `Java 11+` ](https://www.oracle.com/java/technologies/downloads/#java11)
+- [ `Java 17` ](https://www.oracle.com/java/technologies/downloads/#java11)
 - [ `Docker` ](https://www.docker.com/)
 - [ `Docker-Compose` ](https://docs.docker.com/compose/install/)
 

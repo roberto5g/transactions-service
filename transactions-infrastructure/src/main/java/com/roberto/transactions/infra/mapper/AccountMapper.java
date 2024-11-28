@@ -3,6 +3,7 @@ package com.roberto.transactions.infra.mapper;
 import com.roberto.transactions.domain.core.models.Account;
 import com.roberto.transactions.infra.persistence.entity.AccountEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.Optional;
@@ -12,6 +13,7 @@ public interface AccountMapper {
 
     AccountMapper INSTANCE = Mappers.getMapper(AccountMapper.class);
 
+    @Mapping(source = "availableCreditLimit", target = "availableCreditLimit")
     AccountEntity toAccountEntity(Account account);
     Account toAccount(AccountEntity accountEntity);
 

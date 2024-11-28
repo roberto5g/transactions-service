@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 public enum ErrorCodeEnum {
     TS400001,
     TS400002,
+    TS400003,
     TS404001,
     TS404002,
     TS500001;

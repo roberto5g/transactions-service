@@ -2,14 +2,15 @@ package com.roberto.transactions.infra.persistence.adapters;
 
 import com.roberto.transactions.domain.core.exceptions.AccountNotFoundException;
 import com.roberto.transactions.domain.core.exceptions.OperationTypeNotFoundException;
+import com.roberto.transactions.domain.core.exceptions.TransactionNotAllowedException;
 import com.roberto.transactions.domain.core.exceptions.TransactionPersistenceException;
 import com.roberto.transactions.domain.core.models.Transaction;
+import com.roberto.transactions.domain.ports.out.TransactionOutputPort;
 import com.roberto.transactions.infra.mapper.TransactionMapper;
 import com.roberto.transactions.infra.persistence.entity.TransactionEntity;
 import com.roberto.transactions.infra.persistence.repositories.AccountJpaRepository;
 import com.roberto.transactions.infra.persistence.repositories.OperationTypeJpaRepository;
 import com.roberto.transactions.infra.persistence.repositories.TransactionJpaRepository;
-import com.roberto.transactions.domain.ports.out.TransactionOutputPort;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,18 @@ public class TransactionAdapter implements TransactionOutputPort {
                         return new AccountNotFoundException();
                     });
 
+            if(transaction.getAmount().signum() < 0){
+                var debitAmount = transaction.getAmount().abs();
+                if(accountEntity.getAvailableCreditLimit().compareTo(debitAmount) >= 0){
+                    accountEntity.setAvailableCreditLimit(accountEntity.getAvailableCreditLimit().subtract(debitAmount));
+                } else {
+                    throw new TransactionNotAllowedException();
+                }
+            } else {
+                accountEntity.setAvailableCreditLimit(accountEntity.getAvailableCreditLimit().add(transaction.getAmount()));
+            }
+
+
             log.info("Getting operation type entity with ID: {}", transaction.getOperationTypeId());
             final var operationTypeEntity = operationTypeJpaRepository.findById(transaction.getOperationTypeId())
                     .orElseThrow(() -> {
@@ -51,7 +64,9 @@ public class TransactionAdapter implements TransactionOutputPort {
                     .amount(transaction.getAmount())
                     .eventDate(LocalDateTime.now()).build();
             log.info("Saving the transaction");
-            return TransactionMapper.INSTANCE.toTransaction(transactionJpaRepository.save(transactionEntity));
+            var transactionCreated = transactionJpaRepository.save(transactionEntity);
+            accountJpaRepository.save(accountEntity);
+            return TransactionMapper.INSTANCE.toTransaction(transactionCreated);
         } catch (DataAccessException ex){
             log.error("Failed to save transaction to the database", ex);
             throw new TransactionPersistenceException();

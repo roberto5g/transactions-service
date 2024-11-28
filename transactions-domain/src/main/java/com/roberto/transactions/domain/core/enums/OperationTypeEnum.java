@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public enum OperationTypeEnum {
     NORMAL_PURCHASE(1L, "Normal Purchase", false),
-    PURCHASE_WITH_INSTALLMENTS(2L, "Purchase with installments", true),
+    PURCHASE_WITH_INSTALLMENTS(2L, "Purchase with installments", false),
     WITHDRAWAL(3L, "Withdrawal", false),
     CREDIT_VOUCHER(4L, "Credit Voucher", true);
 

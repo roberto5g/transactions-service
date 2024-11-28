@@ -1,9 +1,11 @@
 package com.roberto.transactions.infra.persistence.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "accounts")
@@ -21,4 +23,7 @@ public class AccountEntity implements Serializable {
     private Long accountId;
     @Column(name = "document_number", nullable = false, updatable = false, length = 11)
     private String documentNumber;
+    @PositiveOrZero
+    @Column(name = "available_credit_limit", nullable = false, scale = 2, precision = 15)
+    private BigDecimal availableCreditLimit = BigDecimal.ZERO;
 }
