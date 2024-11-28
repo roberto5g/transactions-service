@@ -2,6 +2,7 @@ package com.roberto.transactions.infra.persistence.adapters;
 
 import com.roberto.transactions.domain.core.exceptions.AccountNotFoundException;
 import com.roberto.transactions.domain.core.exceptions.OperationTypeNotFoundException;
+import com.roberto.transactions.domain.core.exceptions.TransactionNotAllowedException;
 import com.roberto.transactions.domain.core.exceptions.TransactionPersistenceException;
 import com.roberto.transactions.domain.core.models.Transaction;
 import com.roberto.transactions.infra.persistence.entity.AccountEntity;
@@ -121,4 +122,60 @@ class TransactionAdapterTest {
         verify(operationTypeJpaRepository, times(1)).findById(1L);
         verify(transactionJpaRepository, times(1)).save(any(TransactionEntity.class));
     }
+
+    @Test
+    void shouldDeductDebitAmountFromAvailableCreditLimitSuccessfully() {
+        var transaction = new Transaction(1L, 1L, BigDecimal.valueOf(-50.0));
+        var operationType = new OperationTypeEntity();
+        operationType.setOperationTypeId(1L);
+        var accountEntity = new AccountEntity();
+        accountEntity.setAccountId(1L);
+        accountEntity.setDocumentNumber("12345678901");
+        accountEntity.setAvailableCreditLimit(BigDecimal.valueOf(100.0));
+
+        when(accountJpaRepository.findById(1L)).thenReturn(Optional.of(accountEntity));
+        when(operationTypeJpaRepository.findById(1L)).thenReturn(Optional.of(operationType));
+
+        transactionAdapter.insert(transaction);
+
+        assertEquals(BigDecimal.valueOf(50.0), accountEntity.getAvailableCreditLimit());
+        verify(accountJpaRepository, times(1)).findById(1L);
+        verify(transactionJpaRepository, times(1)).save(any(TransactionEntity.class));
+    }
+
+    @Test
+    void shouldThrowTransactionNotAllowedExceptionWhenDebitAmountExceedsAvailableCreditLimit() {
+        var transaction = new Transaction(1L, 1L, BigDecimal.valueOf(-150.0));
+        var accountEntity = new AccountEntity();
+        accountEntity.setAccountId(1L);
+        accountEntity.setDocumentNumber("12345678901");
+        accountEntity.setAvailableCreditLimit(BigDecimal.valueOf(100.0));
+
+        when(accountJpaRepository.findById(1L)).thenReturn(Optional.of(accountEntity));
+
+        var exception = assertThrows(TransactionNotAllowedException.class, () -> transactionAdapter.insert(transaction));
+        assertNotNull(exception);
+        verify(accountJpaRepository, times(1)).findById(1L);
+        verify(transactionJpaRepository, never()).save(any(TransactionEntity.class));
+    }
+
+    @Test
+    void shouldAddCreditAmountToAvailableCreditLimitSuccessfully() {
+        var transaction = new Transaction(1L, 1L, BigDecimal.valueOf(50.0));
+        var operationType = new OperationTypeEntity();
+        operationType.setOperationTypeId(4L);
+        var accountEntity = new AccountEntity();
+        accountEntity.setAccountId(1L);
+        accountEntity.setDocumentNumber("12345678901");
+        accountEntity.setAvailableCreditLimit(BigDecimal.valueOf(100.0));
+
+        when(accountJpaRepository.findById(1L)).thenReturn(Optional.of(accountEntity));
+        when(operationTypeJpaRepository.findById(1L)).thenReturn(Optional.of(operationType));
+        transactionAdapter.insert(transaction);
+
+        assertEquals(BigDecimal.valueOf(150.0), accountEntity.getAvailableCreditLimit());
+        verify(accountJpaRepository, times(1)).findById(1L);
+        verify(transactionJpaRepository, times(1)).save(any(TransactionEntity.class));
+    }
+
 }
